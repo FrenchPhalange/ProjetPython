@@ -12,9 +12,9 @@ création, modification, suppression et recherche de contacte.
 
 ## Day 1 : 
 <ul> Création de l'applications et squelette du carnet : ✅ <br>
-    <li>Structuration du projet contacte <br>
+    <ul><li>Structuration du projet contacte <br>
     <li>Création de la fenêtre principale <br>
-    <li>Codage et Exécution de l'application <br>
-<ul>
+    <ul><li>Codage et Exécution de l'application <br>
+<ul><br>
 Configuration de la base de données : ❌
 

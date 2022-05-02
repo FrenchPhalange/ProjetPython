@@ -1,0 +1,1 @@
+# ça va fournire la liste des exigences du projet mais tkt c'est juste la version de PyQt5

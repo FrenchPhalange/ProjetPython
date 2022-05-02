@@ -15,6 +15,6 @@ création, modification, suppression et recherche de contacte.
     <ul><li>Structuration du projet contacte <br>
     <li>Création de la fenêtre principale <br>
     <ul><li>Codage et Exécution de l'application <br>
-<ul><br>
-Configuration de la base de données : ❌
 
+Configuration de la base de données : ❌
+<ul><br>

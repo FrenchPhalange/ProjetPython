@@ -54,6 +54,7 @@ class Window(QMainWindow):
         
         # Pour créer les boutons Ajouter , Supprimer et Effacer tout
         self.addButton = QPushButton("Ajouter")
+        self.addButton.clicked.connect(self.openAddDialog)
         self.editButton = QPushButton("Editer")
         self.deleteButton = QPushButton("Supprimer")
         self.clearAllButton = QPushButton("Poutine")
@@ -67,4 +68,75 @@ class Window(QMainWindow):
         layout.addWidget(self.clearAllButton)
         self.layout.addWidget(self.table)
         self.layout.addLayout(layout)
+
+    # Function qui affiche la boite de dialogue lorsque le click est effectué sur le button
+    def openAddDialog(self):
+        """Open the Add Contact dialog."""
+        dialog = AddDialog(self)
+        if dialog.exec() == QDialog.Accepted:
+            self.contactsModel.addContact(dialog.data)
+            self.table.resizeColumnsToContents()
+
+# Class pour une boite de dialogue
+class AddDialog(QDialog):
+    """ajout de la boite ajout contact"""
+    def __init__(self, parent=None):
+        """Inisialisation"""
+        super().__init__(parent=parent)
+        self.setWindowTitle("Ajouter un contact")
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+        self.data = None
+
+        self.setupUI()
+    
+    def setupUI(self):
+        """Configuration de l'interface de la boite de dialogue"""
+        # On créer des objets pour chaque champs du formulaire 
+        self.nameField = QLineEdit()
+        self.nameField.setObjectName("Nom")
+        self.jobField = QLineEdit()
+        self.jobField.setObjectName("Métier")
+        self.phoneField = QLineEdit()
+        self.phoneField.setObjectName("Téléphone")
+        self.emailField = QLineEdit()
+        self.emailField.setObjectName("Email")
+        # On construit la structure de la boite de dialogue
+        layout = QFormLayout()
+        layout.addRow("Nom:", self.nameField)
+        layout.addRow("Métier:", self.jobField)
+        layout.addRow("Téléphone:", self.phoneField)
+        layout.addRow("Email:", self.emailField)
+        self.layout.addLayout(layout)
+        #On ajoute les boutons et ont les connectes
+        self.buttonsBox = QDialogButtonBox(self)
+        self.buttonsBox.setOrientation(Qt.Horizontal)
+        self.buttonsBox.setStandardButtons(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        )
+        self.buttonsBox.accepted.connect(self.accept)
+        self.buttonsBox.rejected.connect(self.reject)
+        self.layout.addWidget(self.buttonsBox)
+
+    def accept(self):
+        """Accept the data provided through the dialog."""
+        self.data = []
+        for field in (self.nameField, self.jobField, self.phoneField, self.emailField):
+            if not field.text():
+                QMessageBox.critical(
+                    self,
+                    "Error!",
+                    f"You must provide a contact's {field.objectName()}",
+                )
+                self.data = None  # Reinisialisation des donnée
+                return
+
+            self.data.append(field.text())
+
+        if not self.data:
+            return
+
+        super().accept()
+
+
 

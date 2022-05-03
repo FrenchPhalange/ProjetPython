@@ -2,6 +2,7 @@
 
 # Le dossier contiendra le code pour générer l'interface graphique des fenêtres et des boîtes de dialogue etc... on va voir comment on fait
 
+ # Import de certaine fonctionnalité de la librairie PyQT5
 from PyQt5.QtWidgets import (
     QAbstractItemView,
     QHBoxLayout,

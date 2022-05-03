@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
 
+
+
 def _createContactsTable():
     # Créez la table des contacts dans la base de données
     createTableQuery = QSqlQuery()
@@ -40,3 +42,7 @@ def createConnection(databaseName):
     _createContactsTable()
     # Revient True si la tentative de connexion réussit
     return True
+
+
+
+

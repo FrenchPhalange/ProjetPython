@@ -2,22 +2,36 @@
 
 # Le dossier contiendra le code pour générer l'interface graphique des fenêtres et des boîtes de dialogue etc... on va voir comment on fait
 
+
  # Import de certaine fonctionnalité de la librairie PyQT5
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QAbstractItemView,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
     QHBoxLayout,
+    QLineEdit,
     QMainWindow,
+    QMessageBox,
     QPushButton,
     QTableView,
     QVBoxLayout,
     QWidget,
 )
 
+
+
+#import de notre module
+from .model import ContactsModel
+
 # Fenêtre principale de l'application
 class Window(QMainWindow):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        # Instanciation de l'objet contacs model
+        self.contactsModel = ContactsModel()
         self.setWindowTitle("Gestionnaire de contacte v0.0.1")
         self.resize(700, 400)
         self.centralWidget = QWidget()
@@ -35,6 +49,9 @@ class Window(QMainWindow):
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.resizeColumnsToContents()
 
+        #affichage du module d'affichage des contacts et de sa structure
+        self.table.setModel(self.contactsModel.model)
+        
         # Pour créer les boutons Ajouter , Supprimer et Effacer tout
         self.addButton = QPushButton("Ajouter")
         self.editButton = QPushButton("Editer")

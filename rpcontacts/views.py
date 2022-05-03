@@ -4,6 +4,7 @@
 
 
  # Import de certaine fonctionnalité de la librairie PyQT5
+from email import message
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QAbstractItemView,
@@ -57,6 +58,7 @@ class Window(QMainWindow):
         self.addButton.clicked.connect(self.openAddDialog)
         self.editButton = QPushButton("Editer")
         self.deleteButton = QPushButton("Supprimer")
+        self.deleteButton.clicked.connect(self.deleteContact)
         self.clearAllButton = QPushButton("Poutine")
 
         # Créent et définissent une mise en page cohérente pour tous les widgets de l'interface graphique
@@ -68,6 +70,22 @@ class Window(QMainWindow):
         layout.addWidget(self.clearAllButton)
         self.layout.addWidget(self.table)
         self.layout.addLayout(layout)
+
+    def deleteContact(self):
+        """Delete the selected contact from the database."""
+        row = self.table.currentIndex().row()
+        if row < 0:
+            return
+
+        messageBox = QMessageBox.warning(
+            self,
+            "Warning!",
+            "Supprimer le contact selectionné ?",
+            QMessageBox.Ok | QMessageBox.Cancel,
+        )
+
+        if messageBox == QMessageBox.Ok:
+            self.contactsModel.deleteContact(row)
 
     # Function qui affiche la boite de dialogue lorsque le click est effectué sur le button
     def openAddDialog(self):

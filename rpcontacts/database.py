@@ -17,7 +17,7 @@ def _createContactsTable():
             nom VARCHAR(40) NOT NULL,
             métier VARCHAR(50),
             téléphone VARCHAR(15) NOT NULL,
-            email VARCHAR(40) NOT NULL,
+            email VARCHAR(40) NOT NULL
         )
         """
     )

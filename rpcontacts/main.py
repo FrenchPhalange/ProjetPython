@@ -16,7 +16,7 @@ def main():
     app = QApplication(sys.argv)
 
     # Il faut se connecter à la DB avant de vouloir lancer ou créer 
-    if not createConnection("contactes.sqlite"):
+    if not createConnection("contacts.sqlite"):
         # Si problème, il indiquera une erreur
         sys.exit(1)
 

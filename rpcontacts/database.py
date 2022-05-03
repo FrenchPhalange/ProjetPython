@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# rpcontacts/database.py
 
 # Connexion de l'appli à la Db, si c'est bon = True sinon False et explicayion de pourquoi echec/error
 
@@ -32,7 +33,7 @@ def createConnection(databaseName):
         QMessageBox.warning(
             None,
             "Gestionnaire de contacte v0.0.1",
-            f"Erreur de base de données: {connection.lastError().text()}"
+            f"Erreur de base de données: {connection.lastError().text()}",
         )
         return False
 

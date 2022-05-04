@@ -2,9 +2,9 @@
 
 # Le dossier contiendra le code pour générer l'interface graphique des fenêtres et des boîtes de dialogue etc... on va voir comment on fait
 
-
  # Import de certaine fonctionnalité de la librairie PyQT5
 from email import message
+from tkinter import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QAbstractItemView,
@@ -155,6 +155,3 @@ class AddDialog(QDialog):
             return
 
         super().accept()
-
-
-

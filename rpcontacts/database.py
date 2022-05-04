@@ -16,9 +16,9 @@ def _createContactsTable():
     return createTableQuery.exec(
         """
         CREATE TABLE IF NOT EXISTS contacts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+            prénom VARCHAR(40) NOT NULL,
             nom VARCHAR(40) NOT NULL,
-            métier VARCHAR(50),
+            métier VARCHAR(50) NOT NULL,
             téléphone VARCHAR(15) NOT NULL,
             email VARCHAR(40) NOT NULL
         )

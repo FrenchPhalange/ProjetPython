@@ -5,7 +5,7 @@
  # Import de certaine fonctionnalité de la librairie PyQT5
 from email import message
 from tkinter import *
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtWidgets import (
     QAbstractItemView,
     QDialog,
@@ -20,6 +20,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 
 
@@ -50,7 +51,7 @@ class Window(QMainWindow):
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.resizeColumnsToContents()
 
-        #affichage du module d'affichage des contacts et de sa structure
+        # affichage du module d'affichage des contacts et de sa structure
         self.table.setModel(self.contactsModel.model)
         
         # Pour créer les boutons Ajouter , Supprimer et Effacer tout
@@ -59,10 +60,16 @@ class Window(QMainWindow):
         self.editButton = QPushButton("Editer")
         self.deleteButton = QPushButton("Supprimer")
         self.deleteButton.clicked.connect(self.deleteContact)
-        self.clearAllButton = QPushButton("Poutine")
+        self.clearAllButton = QPushButton("Tout supprimer")
+        self.clearAllButton.clicked.connect(self.clearContacts)
+        self.search = QLineEdit()
+        self.search.setStyleSheet('font-size: 20px; height: 40px')
+
+
 
         # Créent et définissent une mise en page cohérente pour tous les widgets de l'interface graphique
         layout = QVBoxLayout()
+        layout.addWidget(self.search)
         layout.addWidget(self.addButton)
         layout.addWidget(self.editButton)
         layout.addWidget(self.deleteButton)
@@ -71,8 +78,22 @@ class Window(QMainWindow):
         self.layout.addWidget(self.table)
         self.layout.addLayout(layout)
 
+    # Méthod qui affiche la box de confirmation et lance la method de suppression global
+    def clearContacts(self):
+        """ Supprimer tout """
+        messageBox = QMessageBox.warning(
+            self,
+            "Warning!",
+            "Voulez-vous réinisialiser la totalité de vos contacts ?",
+            QMessageBox.Ok | QMessageBox.Cancel
+        )
+        
+        if messageBox == QMessageBox.Ok:
+            self.contactsModel.clearContacts()
+
+    #
     def deleteContact(self):
-        """Delete the selected contact from the database."""
+        """Supprime un contact selectionné."""
         row = self.table.currentIndex().row()
         if row < 0:
             return
@@ -111,6 +132,8 @@ class AddDialog(QDialog):
     def setupUI(self):
         """Configuration de l'interface de la boite de dialogue"""
         # On créer des objets pour chaque champs du formulaire 
+        self.prenomField = QLineEdit()
+        self.prenomField.setObjectName("Prénom")
         self.nameField = QLineEdit()
         self.nameField.setObjectName("Nom")
         self.jobField = QLineEdit()
@@ -121,6 +144,7 @@ class AddDialog(QDialog):
         self.emailField.setObjectName("Email")
         # On construit la structure de la boite de dialogue
         layout = QFormLayout()
+        layout.addRow("Prénom:", self.prenomField)
         layout.addRow("Nom:", self.nameField)
         layout.addRow("Métier:", self.jobField)
         layout.addRow("Téléphone:", self.phoneField)
@@ -139,7 +163,7 @@ class AddDialog(QDialog):
     def accept(self):
         """Accept the data provided through the dialog."""
         self.data = []
-        for field in (self.nameField, self.jobField, self.phoneField, self.emailField):
+        for field in (self.prenomField, self.nameField, self.jobField, self.phoneField, self.emailField):
             if not field.text():
                 QMessageBox.critical(
                     self,

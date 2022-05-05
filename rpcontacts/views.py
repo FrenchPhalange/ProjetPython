@@ -4,7 +4,8 @@
 
 # Import de certaine fonctionnalité de la librairie PyQT5
 from email import message
-from tkinter import *
+import tkinter as tk
+from tkinter import messagebox
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
 from PyQt5.QtWidgets import (
     QAbstractItemView,
@@ -23,7 +24,6 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 
-
 #import de notre module
 from .model import ContactsModel
 
@@ -34,7 +34,7 @@ class Window(QMainWindow):
         super().__init__(parent)
         # Instanciation de l'objet contacs model
         self.contactsModel = ContactsModel()
-        self.setWindowTitle("Gestionnaire de contacte v0.0.1")
+        self.setWindowTitle("Gestionnaire de contacts v0.1.1")
         self.resize(1000, 400)
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
@@ -63,7 +63,8 @@ class Window(QMainWindow):
         self.clearAllButton = QPushButton("Tout supprimer")
         self.clearAllButton.clicked.connect(self.clearContacts)
         self.search = QLineEdit()
-        self.search.setStyleSheet('font-size: 20px; height: 40px')
+        self.search.setStyleSheet('font-size: 20px; height: 20px')
+        
 
         # Créent et définissent une mise en page cohérente pour tous les widgets de l'interface graphique
         layout = QVBoxLayout()
@@ -165,8 +166,8 @@ class AddDialog(QDialog):
             if not field.text():
                 QMessageBox.critical(
                     self,
-                    "Error!",
-                    f"You must provide a contact's {field.objectName()}",
+                    "Erreur!",
+                    f"Vous devez fournir les coordonnées d'un contact : {field.objectName()}",
                 )
                 self.data = None  # Reinisialisation des donnée
                 return

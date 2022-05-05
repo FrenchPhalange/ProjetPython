@@ -39,7 +39,7 @@ class ContactsModel:
         return tableModel
 
     def addContact(self, data):
-        """Add a contact to the database."""
+        """Ajoute un contact à la base de données."""
         rows = self.model.rowCount()
         self.model.insertRows(rows, 1)
         for column, field in enumerate(data):

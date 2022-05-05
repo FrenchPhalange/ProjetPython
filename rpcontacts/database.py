@@ -8,8 +8,6 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
 
-
-
 def _createContactsTable():
     # Créez la table des contacts dans la base de données
     createTableQuery = QSqlQuery()
@@ -34,7 +32,7 @@ def createConnection(databaseName):
     if not connection.open():
         QMessageBox.warning(
             None,
-            "Gestionnaire de contacte v0.0.1",
+            "Gestionnaire de contacte v0.1.1",
             f"Erreur de base de données: {connection.lastError().text()}",
         )
         return False

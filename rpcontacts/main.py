@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Bah le main quoi, là ou l'appli est héberger la db , run et les fonctions principales etc...
+# là ou l'appli est héberger la db , run et les fonctions principales etc...
 
 # import sys = accéder à exit() et donc, ça se ferme proprement
 import sys

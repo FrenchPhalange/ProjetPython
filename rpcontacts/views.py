@@ -2,7 +2,7 @@
 
 # Le dossier contiendra le code pour générer l'interface graphique des fenêtres et des boîtes de dialogue etc... on va voir comment on fait
 
- # Import de certaine fonctionnalité de la librairie PyQT5
+# Import de certaine fonctionnalité de la librairie PyQT5
 from email import message
 from tkinter import *
 from PyQt5.QtCore import Qt, QSortFilterProxyModel
@@ -35,7 +35,7 @@ class Window(QMainWindow):
         # Instanciation de l'objet contacs model
         self.contactsModel = ContactsModel()
         self.setWindowTitle("Gestionnaire de contacte v0.0.1")
-        self.resize(700, 400)
+        self.resize(1000, 400)
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.layout = QHBoxLayout()
@@ -64,8 +64,6 @@ class Window(QMainWindow):
         self.clearAllButton.clicked.connect(self.clearContacts)
         self.search = QLineEdit()
         self.search.setStyleSheet('font-size: 20px; height: 40px')
-
-
 
         # Créent et définissent une mise en page cohérente pour tous les widgets de l'interface graphique
         layout = QVBoxLayout()
@@ -150,7 +148,7 @@ class AddDialog(QDialog):
         layout.addRow("Téléphone:", self.phoneField)
         layout.addRow("Email:", self.emailField)
         self.layout.addLayout(layout)
-        #On ajoute les boutons et ont les connectes
+        # On ajoute les boutons et ont les connectes
         self.buttonsBox = QDialogButtonBox(self)
         self.buttonsBox.setOrientation(Qt.Horizontal)
         self.buttonsBox.setStandardButtons(
@@ -161,7 +159,7 @@ class AddDialog(QDialog):
         self.layout.addWidget(self.buttonsBox)
 
     def accept(self):
-        """Accept the data provided through the dialog."""
+        """Accepte les données fournies par le texte"""
         self.data = []
         for field in (self.prenomField, self.nameField, self.jobField, self.phoneField, self.emailField):
             if not field.text():
